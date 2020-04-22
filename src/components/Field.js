@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Cell from './Cell';
 
 const Field = () => {
   let size = 20;
@@ -7,7 +8,7 @@ const Field = () => {
   for(let i = 0; i < size; i++) {
     matrix[i] = [];
     for(let j = 0; j < size; j++) {
-      matrix[i][j] = <div key={`${i}-${j}`} className="cell"></div>
+      matrix[i][j] = <Cell key={`${i}-${j}`} />
     }
   }
 

@@ -44,8 +44,14 @@ $primary: #000000;
             0 0 0 2px rgba($primary, 0.4);
         }
       }
+
+      .selected {
+        background-color: rgba($primary, 0.1);
+      }
     }
+
   }
+
 
   .hidden {
     display: none;
