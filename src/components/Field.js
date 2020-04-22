@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Cell from './Cell';
 import {specialState} from '../utils/special-state';
+import {getRandomCoordinates} from '../utils/random';
+const rows = 22;
+const columns = 32;
+const numberOfBombs = Math.floor((rows*columns)/3);
 
 const getInitialMatrix = () => {
-  const rows = 22;
-  const columns = 32;
   let matrix = new Array(rows);
 
   for(let i = 0; i < rows; i++) {
     matrix[i] = new Array(columns);
     for(let j = 0; j < columns; j++) {
-      matrix[i][j] = false;
+      matrix[i][j] = {selected: false};
     }
+  }
+
+  for(let i = 0; i < numberOfBombs; i++) {
+    const [x, y] = getRandomCoordinates(rows, columns);
+    matrix[x][y].isBomb = true;
   }
 
   return matrix;
@@ -24,7 +31,7 @@ const Field = () => {
 
   const onCellClick = ({xIndex, yIndex, selected}) => {
     const newMatrix = [...matrix];
-    newMatrix[xIndex][yIndex] = selected;
+    newMatrix[xIndex][yIndex].selected = selected;
     setMatrix(newMatrix);
   }
 
@@ -46,7 +53,8 @@ const Field = () => {
               callback={onCellClick}
               xIndex={i}
               yIndex={j}
-              selected={matrix[i][j]}
+              selected={matrix[i][j].selected}
+              isBomb={matrix[i][j].isBomb}
             />
           );
         })}</div>

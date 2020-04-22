@@ -28,10 +28,15 @@ $secondary: #FFFFFF;
       }
 
       .cell {
+        align-items: center;
+        font-size: 22px;
+        font-weight: 700;
+        display: flex;
         border-radius: 2px;
         height: 25px;
+        justify-content: center;
         width: 25px;
-        background-color: rgba($primary, 0.6);
+        background-color: rgba($primary, 0.4);
 
         &:not(:last-child) {
           margin-right: 5px;

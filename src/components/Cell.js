@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Cell = ({xIndex, yIndex, selected, callback}) => {
+const Cell = ({callback, xIndex, yIndex, selected, value}) => {
   // const [selected, setSelected] = useState(initialSelected);
 
   const updateState = () => {
@@ -12,6 +12,7 @@ const Cell = ({xIndex, yIndex, selected, callback}) => {
       className={`cell${selected ? ' selected' : ''}`}
       onClick={updateState}
     >
+      {value}
     </div>
   );
 }
