@@ -28,9 +28,9 @@ $primary: #000000;
 
       .cell {
         border-radius: 2px;
-        height: 28px;
-        width: 28px;
-        background-color: rgba($primary, 0.3);
+        height: 25px;
+        width: 25px;
+        background-color: rgba($primary, 0.5);
 
         &:not(:last-child) {
           margin-right: 5px;

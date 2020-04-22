@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-const Cell = () => {
-  const [selected, setSelected] = useState(false);
+const Cell = ({xIndex, yIndex, selected, callback}) => {
+  // const [selected, setSelected] = useState(initialSelected);
 
   const updateState = () => {
-    console.log('crancky!')
-    setSelected(!selected);
+    callback({xIndex, yIndex, selected: !selected});
   }
 
   return (
