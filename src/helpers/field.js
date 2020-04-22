@@ -2,7 +2,7 @@ function canMoveLeft(matrix, x, y) {
   if (y-1 < 0) {
     return false;
   }
-  return matrix[x][y-1] && !matrix[x][y-1].isBomb && !matrix[x][y-1].selected && !matrix[x][y-1].value;
+  return matrix[x][y-1] && !matrix[x][y-1].isBomb && !matrix[x][y-1].selected && (!matrix[x][y-1].value || !matrix[x][y].value);
 }
 
 function canMoveRight(matrix, x, y) {
@@ -11,14 +11,14 @@ function canMoveRight(matrix, x, y) {
     return false;
   }
 
-  return matrix[x][y+1] && !matrix[x][y+1].isBomb && !matrix[x][y+1].selected && !matrix[x][y+1].value;
+  return matrix[x][y+1] && !matrix[x][y+1].isBomb && !matrix[x][y+1].selected && (!matrix[x][y+1].value || !matrix[x][y].value);
 }
 
 function canMoveTop(matrix, x, y) {
   if (x-1 < 0) {
     return false;
   }
-  return matrix[x-1][y] && !matrix[x-1][y].isBomb && !matrix[x-1][y].selected && !matrix[x-1][y].value ;
+  return matrix[x-1][y] && !matrix[x-1][y].isBomb && !matrix[x-1][y].selected && (!matrix[x-1][y].value || !matrix[x-1][y].value);
 }
 
 function canMoveBottom(matrix, x, y) {
@@ -27,7 +27,7 @@ function canMoveBottom(matrix, x, y) {
     return false;
   }
 
-  return matrix[x+1][y] && !matrix[x+1][y].isBomb && !matrix[x+1][y].selected && !matrix[x+1][y].value;
+  return matrix[x+1][y] && !matrix[x+1][y].isBomb && !matrix[x+1][y].selected && (!matrix[x+1][y].value || !matrix[x+1][y].value);
 }
 
 function canMoveTopRight(matrix, x, y) {
@@ -36,7 +36,7 @@ function canMoveTopRight(matrix, x, y) {
     return false;
   }
 
-  return matrix[x-1][y+1] && !matrix[x-1][y+1].isBomb && !matrix[x-1][y+1].selected && !matrix[x-1][y+1].value;
+  return matrix[x-1][y+1] && !matrix[x-1][y+1].isBomb && !matrix[x-1][y+1].selected && (!matrix[x-1][y+1].value || !matrix[x][y].value);
 }
 
 function canMoveTopLeft(matrix, x, y) {
@@ -44,7 +44,7 @@ function canMoveTopLeft(matrix, x, y) {
     return false;
   }
 
-  return matrix[x-1][y-1] && !matrix[x-1][y-1].isBomb && !matrix[x-1][y-1].selected && !matrix[x-1][y-1].value;
+  return matrix[x-1][y-1] && !matrix[x-1][y-1].isBomb && !matrix[x-1][y-1].selected && (!matrix[x-1][y-1].value || !matrix[x][y].value);
 }
 
 function canMoveBottomLeft(matrix, x, y) {
@@ -53,7 +53,7 @@ function canMoveBottomLeft(matrix, x, y) {
     return false;
   }
 
-  return matrix[x+1][y-1] && !matrix[x+1][y-1].isBomb && !matrix[x+1][y-1].selected && !matrix[x+1][y-1].value;
+  return matrix[x+1][y-1] && !matrix[x+1][y-1].isBomb && !matrix[x+1][y-1].selected && (!matrix[x+1][y-1].value || !matrix[x][y].value);
 }
 
 function canMoveBottomRight(matrix, x, y) {
@@ -63,7 +63,7 @@ function canMoveBottomRight(matrix, x, y) {
     return false;
   }
 
-  return matrix[x+1][y-1] && !matrix[x+1][y-1].isBomb && !matrix[x+1][y-1].selected && !matrix[x+1][y-1].value;
+  return matrix[x+1][y-1] && !matrix[x+1][y-1].isBomb && !matrix[x+1][y-1].selected && (!matrix[x+1][y-1].value || !matrix[x][y].value);
 }
 
 

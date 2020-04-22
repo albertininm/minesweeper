@@ -69,7 +69,7 @@ const Field = () => {
         markAllAsSelected(matrix);
         setFinished(true);
       } else {
-        newMatrix[x][y].selected = selected;
+        newMatrix[x][y].selected = true;
         expandBoundaries(newMatrix, x, y);
       }
       setMatrix(newMatrix);
