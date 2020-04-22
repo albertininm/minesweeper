@@ -49,6 +49,11 @@ $secondary: #FFFFFF;
             0 12px 24px -6px rgba($primary, 0.12),
             0 0 0 2px rgba($primary, 0.4);
         }
+
+        .bomb-icon {
+          width: 24px;
+          height: 24px;
+        }
       }
 
       .selected {
