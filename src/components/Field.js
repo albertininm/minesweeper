@@ -3,6 +3,7 @@ import Cell from './Cell';
 import {specialState} from '../utils/special-state';
 import {getRandomCoordinates} from '../utils/random';
 import {
+  countNearBombs,
   isBombLeft,
   isBombBottom,
   isBombRight,
@@ -45,6 +46,12 @@ const getInitialMatrix = () => {
     matrix[x][y].isBomb = true;
   }
 
+  for(let i = 0; i < rows; i++) {
+    for(let j = 0; j < columns; j++) {
+      matrix[i][j].value = countNearBombs(matrix, i, j);
+    }
+  }
+
   return matrix;
 }
 
@@ -54,28 +61,29 @@ const Field = () => {
   const [finished, setFinished] = useState(false);
   const [special, setSpecial] = useState(false);
 
-  const onCellClick = ({xIndex, yIndex, selected}) => {
+  const onCellClick = ({x, y, selected}) => {
     if(!finished) {
       const newMatrix = [...matrix];
 
-      if (newMatrix[xIndex][yIndex].isBomb) {
+      if (newMatrix[x][y].isBomb) {
         markAllAsSelected(matrix);
         setFinished(true);
       } else {
-        newMatrix[xIndex][yIndex].selected = selected;
-        expandBoundaries(newMatrix, xIndex, yIndex);
+        newMatrix[x][y].selected = selected;
+        expandBoundaries(newMatrix, x, y);
       }
       setMatrix(newMatrix);
+      console.log(countNearBombs(matrix, x, y));
 
-      console.log(newMatrix[xIndex][yIndex].isBomb, 'cell is bomb!!!')
-      console.log(isBombBottom(newMatrix, xIndex, yIndex), 'bottom is bomb');
-      console.log(isBombTop(newMatrix, xIndex, yIndex), 'top is bomb');
-      console.log(isBombRight(newMatrix, xIndex, yIndex), 'right is bomb');
-      console.log(isBombLeft(newMatrix, xIndex, yIndex), 'left is bomb');
-      console.log(isBombTopLeft(newMatrix, xIndex, yIndex), 'top left is bomb');
-      console.log(isBombTopRight(newMatrix, xIndex, yIndex), 'top right bomb');
-      console.log(isBombBottomLeft(newMatrix, xIndex, yIndex), 'bottom left is bomb');
-      console.log(isBombBottomRight(newMatrix, xIndex, yIndex), 'bottom right is bomb');
+      // console.log(newMatrix[x][y].isBomb, 'cell is bomb!!!')
+      // console.log(isBombBottom(newMatrix, x, y), 'bottom is bomb');
+      // console.log(isBombTop(newMatrix, x, y), 'top is bomb');
+      // console.log(isBombRight(newMatrix, x, y), 'right is bomb');
+      // console.log(isBombLeft(newMatrix, x, y), 'left is bomb');
+      // console.log(isBombTopLeft(newMatrix, x, y), 'top left is bomb');
+      // console.log(isBombTopRight(newMatrix, x, y), 'top right bomb');
+      // console.log(isBombBottomLeft(newMatrix, x, y), 'bottom left is bomb');
+      // console.log(isBombBottomRight(newMatrix, x, y), 'bottom right is bomb');
     }
   }
 
@@ -95,10 +103,11 @@ const Field = () => {
             <Cell
               key={`${i}-${j}`}
               callback={onCellClick}
-              xIndex={i}
-              yIndex={j}
+              x={i}
+              y={j}
               selected={matrix[i][j].selected}
               isBomb={matrix[i][j].isBomb}
+              value={matrix[i][j].value}
             />
           );
         })}</div>

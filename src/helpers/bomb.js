@@ -66,7 +66,23 @@ function isBombBottomRight(matrix, x, y) {
   return matrix[x+1][y+1].isBomb;
 }
 
+
+function countNearBombs(matrix, x, y) {
+  const items = [
+    isBombLeft,
+    isBombBottom,
+    isBombRight,
+    isBombTop,
+    isBombBottomLeft,
+    isBombBottomRight,
+    isBombTopLeft,
+    isBombTopRight
+  ].map(f => !!f(matrix, x, y)).filter(item => item);
+  return items && items.length;
+}
+
 module.exports = {
+  countNearBombs,
   isBombLeft,
   isBombBottom,
   isBombRight,

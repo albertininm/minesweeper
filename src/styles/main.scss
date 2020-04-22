@@ -54,6 +54,24 @@ $secondary: #FFFFFF;
           width: 24px;
           height: 24px;
         }
+
+        .bombs {
+          &-1 {
+            color: blue;
+          }
+          &-2 {
+            color: green;
+          }
+          &-3 {
+            color: red;
+          }
+          &-3 {
+            color: brown;
+          }
+          &-4 {
+            color: brown;
+          }
+        }
       }
 
       .selected {
