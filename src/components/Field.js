@@ -22,7 +22,7 @@ const Field = () => {
   const [matrix, setMatrix] = useState([]);
   const [special, setSpecial] = useState(false);
 
-  const setCellSelected = ({xIndex, yIndex, selected}) => {
+  const onCellClick = ({xIndex, yIndex, selected}) => {
     const newMatrix = [...matrix];
     newMatrix[xIndex][yIndex] = selected;
     setMatrix(newMatrix);
@@ -34,13 +34,21 @@ const Field = () => {
     } else {
       setMatrix(getInitialMatrix());
     }
-  }, []);
+  }, [special]);
 
   return (
     <div className={'field-container'}>
       {matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
-          return <Cell key={`${i}-${j}`} callback={setCellSelected} xIndex={i} yIndex={j} selected={matrix[i][j]} />
+          return (
+            <Cell
+              key={`${i}-${j}`}
+              callback={onCellClick}
+              xIndex={i}
+              yIndex={j}
+              selected={matrix[i][j]}
+            />
+          );
         })}</div>
     })}
   </div>);

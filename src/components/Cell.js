@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Cell = ({xIndex, yIndex, selected, callback}) => {
   // const [selected, setSelected] = useState(initialSelected);
