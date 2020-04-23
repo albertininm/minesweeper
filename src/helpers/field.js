@@ -18,7 +18,7 @@ function canMoveTop(matrix, x, y) {
   if (x-1 < 0) {
     return false;
   }
-  return matrix[x-1][y] && !matrix[x-1][y].isBomb && !matrix[x-1][y].selected && (!matrix[x-1][y].value || !matrix[x-1][y].value);
+  return matrix[x-1][y] && !matrix[x-1][y].isBomb && !matrix[x-1][y].selected && (!matrix[x-1][y].value || !matrix[x][y].value);
 }
 
 function canMoveBottom(matrix, x, y) {
@@ -27,7 +27,7 @@ function canMoveBottom(matrix, x, y) {
     return false;
   }
 
-  return matrix[x+1][y] && !matrix[x+1][y].isBomb && !matrix[x+1][y].selected && (!matrix[x+1][y].value || !matrix[x+1][y].value);
+  return matrix[x+1][y] && !matrix[x+1][y].isBomb && !matrix[x+1][y].selected && (!matrix[x+1][y].value || !matrix[x][y].value);
 }
 
 function canMoveTopRight(matrix, x, y) {
@@ -68,42 +68,42 @@ function canMoveBottomRight(matrix, x, y) {
 
 
 const expandBoundaries = (matrix, x, y) => {
-  if (canMoveRight(matrix, x, y)) {
+  if (canMoveRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y+1].selected = true;
     expandBoundaries(matrix, x, y+1);
   }
 
-  if (canMoveLeft(matrix, x, y)) {
+  if (canMoveLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y-1].selected = true;
     expandBoundaries(matrix, x, y-1);
   }
 
-  if (canMoveTop(matrix, x, y)) {
+  if (canMoveTop(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y].selected = true;
     expandBoundaries(matrix, x-1, y);
   }
 
-  if (canMoveBottom(matrix, x, y)) {
+  if (canMoveBottom(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y].selected = true;
     expandBoundaries(matrix, x+1, y);
   }
 
-  if (canMoveBottomLeft(matrix, x, y)) {
+  if (canMoveBottomLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y-1].selected = true;
     expandBoundaries(matrix, x+1, y-1);
   }
 
-  if (canMoveBottomRight(matrix, x, y)) {
+  if (canMoveBottomRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y+1].selected = true;
     expandBoundaries(matrix, x+1, y+1);
   }
 
-  if (canMoveTopRight(matrix, x, y)) {
+  if (canMoveTopRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y+1].selected = true;
     expandBoundaries(matrix, x-1, y+1);
   }
 
-  if (canMoveTopLeft(matrix, x, y)) {
+  if (canMoveTopLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y-1].selected = true;
     expandBoundaries(matrix, x-1, y-1);
   }
