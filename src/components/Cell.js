@@ -2,8 +2,6 @@ import React from 'react';
 const bomb = require('../static/bomb.png');
 
 const Cell = ({callback, x, y, selected, value, isBomb}) => {
-  // const [selected, setSelected] = useState(initialSelected);
-
   const updateState = () => {
     callback({x, y, selected: !selected});
   }

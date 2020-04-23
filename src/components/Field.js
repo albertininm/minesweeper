@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Cell from './Cell';
+import Failure from './Failure';
 import {specialState} from '../utils/special-state';
 import {getRandomCoordinates} from '../utils/random';
 import {
   countNearBombs,
-  isBombLeft,
-  isBombBottom,
-  isBombRight,
-  isBombTop,
-  isBombBottomLeft,
-  isBombBottomRight,
-  isBombTopLeft,
-  isBombTopRight,
 } from '../helpers/bomb';
 
 import {expandBoundaries} from '../helpers/field';
@@ -59,31 +52,23 @@ const Field = () => {
 
   const [matrix, setMatrix] = useState([]);
   const [finished, setFinished] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [special, setSpecial] = useState(false);
 
-  const onCellClick = ({x, y, selected}) => {
+  const onCellClick = ({x, y}) => {
     if(!finished) {
       const newMatrix = [...matrix];
 
       if (newMatrix[x][y].isBomb) {
         markAllAsSelected(matrix);
         setFinished(true);
-      } else {
+        setFailed(true);
+      } else if (newMatrix[x][y].value){
         newMatrix[x][y].selected = true;
+      } else {
         expandBoundaries(newMatrix, x, y);
       }
       setMatrix(newMatrix);
-      console.log(countNearBombs(matrix, x, y));
-
-      // console.log(newMatrix[x][y].isBomb, 'cell is bomb!!!')
-      // console.log(isBombBottom(newMatrix, x, y), 'bottom is bomb');
-      // console.log(isBombTop(newMatrix, x, y), 'top is bomb');
-      // console.log(isBombRight(newMatrix, x, y), 'right is bomb');
-      // console.log(isBombLeft(newMatrix, x, y), 'left is bomb');
-      // console.log(isBombTopLeft(newMatrix, x, y), 'top left is bomb');
-      // console.log(isBombTopRight(newMatrix, x, y), 'top right bomb');
-      // console.log(isBombBottomLeft(newMatrix, x, y), 'bottom left is bomb');
-      // console.log(isBombBottomRight(newMatrix, x, y), 'bottom right is bomb');
     }
   }
 
@@ -95,20 +80,30 @@ const Field = () => {
     }
   }, [special]);
 
+  const restart = () => {
+    setMatrix(getInitialMatrix());
+    setFailed(false);
+    setFinished(false);
+  }
+
   return (
     <div className={'field-container'}>
+      <Failure
+        failed={failed}
+        restart={restart}
+      />
       {matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
           return (
-            <Cell
-              key={`${i}-${j}`}
-              callback={onCellClick}
-              x={i}
-              y={j}
-              selected={matrix[i][j].selected}
-              isBomb={matrix[i][j].isBomb}
-              value={matrix[i][j].value}
-            />
+              <Cell
+                key={`${i}-${j}`}
+                callback={onCellClick}
+                x={i}
+                y={j}
+                selected={matrix[i][j].selected}
+                isBomb={matrix[i][j].isBomb}
+                value={matrix[i][j].value}
+              />
           );
         })}</div>
     })}
