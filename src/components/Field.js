@@ -11,7 +11,7 @@ import {expandBoundaries} from '../helpers/field';
 
 const rows = 22;
 const columns = 32;
-const numberOfBombs = Math.floor((rows*columns)/10);
+const numberOfBombs = Math.floor((rows*columns)/5);
 
 const markAllAsSelected = (matrix) => {
   const rows = matrix.length;

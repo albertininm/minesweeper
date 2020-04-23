@@ -31,13 +31,13 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
 
       .cell {
         align-items: center;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
         font-size: 22px;
         font-weight: 700;
-        display: flex;
-        border-radius: 2px;
-        height: 25px;
-        justify-content: center;
-        width: 25px;
+        height: 23px;
+        width: 23px;
         background-color: rgba($primary, 0.4);
 
         &:not(:last-child) {
