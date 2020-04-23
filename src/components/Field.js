@@ -58,7 +58,6 @@ const Field = () => {
   const onCellClick = ({x, y}) => {
     if(!finished) {
       const newMatrix = [...matrix];
-
       if (newMatrix[x][y].isBomb) {
         markAllAsSelected(matrix);
         setFinished(true);
@@ -75,6 +74,7 @@ const Field = () => {
   useEffect(() => {
     if(special) {
       setMatrix(specialState);
+      setFinished(true);
     } else {
       setMatrix(getInitialMatrix());
     }
