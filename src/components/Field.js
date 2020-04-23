@@ -65,6 +65,7 @@ const Field = () => {
       } else if (newMatrix[x][y].value){
         newMatrix[x][y].selected = true;
       } else {
+        newMatrix[x][y].selected = true;
         expandBoundaries(newMatrix, x, y);
       }
       setMatrix(newMatrix);
