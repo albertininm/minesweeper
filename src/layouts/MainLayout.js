@@ -5,9 +5,6 @@ const MainLayout = () => {
   return (
     <div className="container">
       <Field />
-      <div className="photo">
-
-      </div>
       <div className="player-section">
       </div>
     </div>

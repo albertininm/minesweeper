@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Cell from './Cell';
 import Failure from './Failure';
 import {specialState} from '../utils/special-state';
@@ -50,50 +50,70 @@ const getInitialMatrix = () => {
 
 const Field = () => {
 
-  const [matrix, setMatrix] = useState([]);
-  const [finished, setFinished] = useState(false);
-  const [failed, setFailed] = useState(false);
-  const [special, setSpecial] = useState(false);
+  const reducer = (state, action) => {
+    return {...state, ...action.payload};
+  }
+
+  const [state, setState] = useReducer(reducer, {
+    matrix: [],
+    finished: false,
+    failed: false,
+    special: false,
+  });
 
   const onCellClick = ({x, y}) => {
-    if(!finished) {
-      const newMatrix = [...matrix];
+    if(!state.finished) {
+      const newMatrix = [...state.matrix];
+      const payload = {};
       if (newMatrix[x][y].isBomb) {
-        markAllAsSelected(matrix);
-        setFinished(true);
-        setFailed(true);
+        markAllAsSelected(newMatrix);
+        payload.finished = true;
+        payload.failed = true;
       } else if (newMatrix[x][y].value){
         newMatrix[x][y].selected = true;
       } else {
         newMatrix[x][y].selected = true;
         expandBoundaries(newMatrix, x, y);
       }
-      setMatrix(newMatrix);
+      payload.matrix = newMatrix;
+      setState({payload});
     }
   }
 
   useEffect(() => {
-    if(special) {
-      setMatrix(specialState);
-      setFinished(true);
+    if(state.special) {
+      setState({
+        payload: {
+          matrix: specialState,
+          finished: true,
+        }
+      });
     } else {
-      setMatrix(getInitialMatrix());
+      setState({
+        payload: {
+          matrix: getInitialMatrix(),
+        }
+      });
     }
-  }, [special]);
+  }, [state.special]);
 
   const restart = () => {
-    setMatrix(getInitialMatrix());
-    setFailed(false);
-    setFinished(false);
+    setState({
+      payload: {
+        matrix: getInitialMatrix(),
+        failed: false,
+        finished: false,
+      }
+    });
   }
 
   return (
     <div className={'field-container'}>
       <Failure
-        failed={failed}
+        failed={state.failed}
         restart={restart}
       />
-      {matrix.map((row, i) => {
+      {state.matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
           return (
               <Cell
@@ -101,9 +121,9 @@ const Field = () => {
                 callback={onCellClick}
                 x={i}
                 y={j}
-                selected={matrix[i][j].selected}
-                isBomb={matrix[i][j].isBomb}
-                value={matrix[i][j].value}
+                selected={state.matrix[i][j].selected}
+                isBomb={state.matrix[i][j].isBomb}
+                value={state.matrix[i][j].value}
               />
           );
         })}</div>
