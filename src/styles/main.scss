@@ -20,7 +20,7 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
     border-radius: 3px;
     display: inline-block;
     box-shadow:
-      0 0 10px 12px rgba($primary, 0.15);
+      0 0 10px 6px rgba($primary, 0.15);
 
     .row {
       align-items: center;
@@ -32,6 +32,7 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
       .cell {
         align-items: center;
         border-radius: 2px;
+        cursor: pointer;
         display: flex;
         justify-content: center;
         font-size: 22px;
@@ -71,7 +72,19 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
             color: brown;
           }
           &-4 {
-            color: brown;
+            color: rgb(131, 39, 39);
+          }
+          &-5 {
+            color: rgb(80, 22, 22);
+          }
+          &-6 {
+            color: rgb(21, 22, 80);
+          }
+          &-7 {
+            color: rgb(20, 14, 54);
+          }
+          &-8 {
+            color: rgb(55, 21, 63);
           }
         }
       }
@@ -127,4 +140,118 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
   .hidden {
     display: none;
   }
+}
+
+.players-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  .players-container-wrapper {
+    margin: 20px 0;
+    display: flex;
+
+    .player {
+      align-items: center;
+      display: flex;
+      margin: 0 22px;
+
+      .player-name {
+        border: 1px solid green;
+        border-radius: 3px;
+        font-family: $font-primary;
+        font-size: 18px;
+        line-height: 22px;
+        height: 30px;
+        margin: 0px 24px;
+        padding: 0 6px;
+        width: 220px;
+        transition: box-shadow 0.3s;
+        box-shadow:
+          0 0 12px -3px rgba($primary, 0.2),
+          0 6px 12px -6px rgba($primary, 0.2);
+
+        &:focus {
+          box-shadow: 0 0 12px -2px $primary;
+          outline: none;
+        }
+      }
+
+      .player-score {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-family: $font-secondary;
+        background-color: rgb(0, 0, 0);
+        border-radius: 3px;
+        color: red;
+        font-weight: bold;
+        padding: 4px;
+        height: 40px;
+        width: 90px;
+        border: 1px solid black;
+        box-shadow:
+          0 0 9px -3px $primary;
+      }
+    }
+
+    .score-separator {
+      align-items: center;
+      display: flex;
+      font-family: $font-secondary;
+      font-size: 30px;
+    }
+
+  }
+
+  .start-game {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+
+    .start-game-button {
+      border-radius: 3px;
+      padding: 2px 8px;
+      background-color: rgba($primary, 0.2);
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: rgba($primary, 0.1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      .start-game-text {
+        font-family: $font-primary;
+        font-size: 25px;
+        font-weight: bold;
+        color: blue;
+        text-transform: uppercase;
+      }
+
+    }
+    .single-player-wrapper {
+      align-items: center;
+      display: flex;
+      margin-left: 6px;
+
+      .single-player-checkbox {
+        margin: 0 6px;
+      }
+
+      .single-player-label {
+        width: 24px;
+        margin: 0 6px;
+        white-space: nowrap;
+        font-family: $font-secondary;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
 }
