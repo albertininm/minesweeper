@@ -14,6 +14,7 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
 
   .field-container {
     background-color: rgba($primary, 0.1);
@@ -47,10 +48,7 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
 
         &:hover {
           box-shadow:
-            0 0 12px -3px rgba($primary, 0.2),
-            0 6px 12px -6px rgba($primary, 0.2),
-            0 12px 24px -6px rgba($primary, 0.12),
-            0 0 0 2px rgba($primary, 0.4);
+            0 0 3px 1px rgba($primary, 0.8);
         }
 
         .bomb-icon {
@@ -157,8 +155,8 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
       margin: 0 22px;
 
       .player-name {
-        border: 1px solid green;
-        border-radius: 3px;
+        border: 1px solid rgba($primary, 0.3);
+        border-radius: 5px;
         font-family: $font-primary;
         font-size: 18px;
         line-height: 22px;
@@ -166,26 +164,29 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
         margin: 0px 24px;
         padding: 0 6px;
         width: 220px;
-        transition: box-shadow 0.3s;
+        transition: box-shadow 0.3s, border 0.3s;
         box-shadow:
           0 0 12px -3px rgba($primary, 0.2),
           0 6px 12px -6px rgba($primary, 0.2);
 
         &:focus {
           box-shadow: 0 0 12px -2px $primary;
+          border: 1px solid green;
           outline: none;
         }
       }
 
       .player-score {
         align-items: center;
-        display: flex;
-        justify-content: center;
-        font-family: $font-secondary;
         background-color: rgb(0, 0, 0);
         border-radius: 3px;
         color: red;
-        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        font-family: $font-secondary;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 30px;
         padding: 4px;
         height: 40px;
         width: 90px;
@@ -207,21 +208,26 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
   .start-game {
     align-items: center;
     display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
 
     .start-game-button {
-      border-radius: 3px;
-      padding: 2px 8px;
+      cursor: pointer;
       background-color: rgba($primary, 0.2);
+      border: 1px solid rgba($primary, 0.2);
+      border-radius: 5px;
+      margin-top: 6px;
+      padding: 2px 8px;
       transition: background-color 0.3s;
 
-      &:hover {
+      &:hover:not(.inprogress) {
         background-color: rgba($primary, 0.1);
       }
 
       &:focus {
         outline: none;
       }
+
 
       .start-game-text {
         font-family: $font-primary;
@@ -232,17 +238,16 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
       }
 
     }
+
     .single-player-wrapper {
       align-items: center;
       display: flex;
-      margin-left: 6px;
 
       .single-player-checkbox {
         margin: 0 6px;
       }
 
       .single-player-label {
-        width: 24px;
         margin: 0 6px;
         white-space: nowrap;
         font-family: $font-secondary;
@@ -250,8 +255,49 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
       }
     }
   }
+
+}
+
+.inprogress {
+  opacity: 0.7;
+  cursor: no-drop !important;
 }
 
 input[type=checkbox] {
-    transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+.field-config {
+  border: 1px solid rgba($primary, 0.2);
+  display: flex;
+  flex-direction: column;
+  left: 20px;
+  position: fixed;
+  top: 132px;
+  padding: 6px;
+  box-shadow: 0 0 12px -3px rgba($primary, 0.8);
+
+  .config {
+    align-items: center;
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
+    .input-config {
+      border: 1px solid rgba($primary, 0.2);
+      border-radius: 3px;
+      width: 50px;
+      height: 20px;
+      font-size: 18px;
+      padding: 5px 10px;
+    }
+    .label-config {
+      font-family: $font-primary;
+      margin-left: 6px;
+    }
+  }
+
+
 }

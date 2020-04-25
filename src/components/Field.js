@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Cell from './Cell';
 import Failure from './Failure';
 import {specialState} from '../utils/special-state';
@@ -9,9 +9,9 @@ import {
 
 import {expandBoundaries} from '../helpers/field';
 
-const rows = 22;
-const columns = 32;
-const numberOfBombs = Math.floor((rows*columns)/2);
+// const rows = 18;
+// const columns = 32;
+// const numberOfBombs = Math.floor((rows*columns)/10);
 
 const markAllAsSelected = (matrix) => {
   const rows = matrix.length;
@@ -24,7 +24,7 @@ const markAllAsSelected = (matrix) => {
   }
 }
 
-const getInitialMatrix = () => {
+const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
   let matrix = new Array(rows);
 
   for(let i = 0; i < rows; i++) {
@@ -36,7 +36,11 @@ const getInitialMatrix = () => {
 
   for(let i = 0; i < numberOfBombs; i++) {
     const [x, y] = getRandomCoordinates(rows, columns);
-    matrix[x][y].isBomb = true;
+    if(matrix[x][y].isBomb) {
+      i--;
+    } else {
+      matrix[x][y].isBomb = true;
+    }
   }
 
   for(let i = 0; i < rows; i++) {
@@ -48,8 +52,7 @@ const getInitialMatrix = () => {
   return matrix;
 }
 
-const Field = () => {
-
+const Field = ({special, rows, columns, numberOfBombs}) => {
   const reducer = (state, action) => {
     return {...state, ...action.payload};
   }
@@ -58,8 +61,15 @@ const Field = () => {
     matrix: [],
     finished: false,
     failed: false,
-    special: false,
   });
+
+  useEffect(() => {
+    setState({
+      payload: {
+        matrix: special? specialState : getInitialMatrix({rows, columns, numberOfBombs}),
+      }
+    });
+  }, [rows, columns, numberOfBombs, special]);
 
   const onCellClick = ({x, y}) => {
     if(!state.finished) {
@@ -80,27 +90,10 @@ const Field = () => {
     }
   }
 
-  useEffect(() => {
-    if(state.special) {
-      setState({
-        payload: {
-          matrix: specialState,
-          finished: true,
-        }
-      });
-    } else {
-      setState({
-        payload: {
-          matrix: getInitialMatrix(),
-        }
-      });
-    }
-  }, [state.special]);
-
   const restart = () => {
     setState({
       payload: {
-        matrix: getInitialMatrix(),
+        matrix: getInitialMatrix({rows, columns, numberOfBombs}),
         failed: false,
         finished: false,
       }

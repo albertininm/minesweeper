@@ -1,33 +1,73 @@
 import React from 'react';
 
-const PlayersScore = ({singlePlayer=true, onClick}) => {
+const PlayersScore = ({
+  namePlayer1,
+  namePlayer2,
+  singlePlayer,
+  setSinglePlayer,
+  setPlayerName,
+  onStart,
+  inProgress
+  }) => {
+
   return (
-    <div class="players-container">
-      <div class="players-container-wrapper">
-        <div class="player">
-          <input class="player-name" type="text"></input>
-          <div class="player-score">
-            12312
+    <div className="players-container">
+      <div className="players-container-wrapper">
+        <div className="player">
+          <input
+            className={`player-name${inProgress?' inprogress' : ''}`}
+            disabled={inProgress}
+            type="text"
+            value={namePlayer1}
+            onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
+          >
+          </input>
+          <div className="player-score">
+            1
           </div>
         </div>
         {!singlePlayer &&
           <>
-            <span class="score-separator">X</span>
-            <div class="player">
-              <div class="player-score">
-                123
+            <span className="score-separator">X</span>
+            <div className="player">
+              <div className="player-score">
+                0
               </div>
-              <input class="player-name" type="text"></input>
+              <input
+                className={`player-name${inProgress?' inprogress' : ''}`}
+                disabled={inProgress}
+                type="text"
+                value={namePlayer2}
+                onChange={({target: {value}}) => setPlayerName('namePlayer2', value)}
+              >
+              </input>
             </div>
           </>
         }
         </div>
-      <div class="start-game">
-        <button class="start-game-button" onClick={onClick}><span class="start-game-text">Start!</span></button>
-        <div class="single-player-wrapper">
-          <input class="single-player-checkbox" type="checkbox" id="checkbox"/>
-          <label class="single-player-label" for="checkbox">Single player</label>
+      <div className="start-game">
+        <div className="single-player-wrapper">
+          <input
+            checked={singlePlayer}
+            className={`single-player-checkbox${inProgress?' inprogress' : ''}`}
+            disabled={inProgress}
+            id="checkbox"
+            type="checkbox"
+            onChange={(value)=>setSinglePlayer(value.target.checked)}
+          />
+          <label
+            className={`single-player-label${inProgress?' inprogress' : ''}`}
+            htmlFor="checkbox"
+          >
+            Single player
+          </label>
         </div>
+        <button
+          className="start-game-button"
+          onClick={() => onStart(!inProgress)}
+        >
+          <span className="start-game-text">{inProgress? 'Restart' : 'Start!'}</span>
+        </button>
       </div>
     </div>
   );

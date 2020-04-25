@@ -9,7 +9,7 @@ const Cell = ({callback, x, y, selected, value, isBomb}) => {
   let contetToShow = '';
   if (selected) {
     if(isBomb) {
-      contetToShow = <img className="bomb-icon" src={bomb} />;
+      contetToShow = <img className="bomb-icon" src={bomb} alt=""/>;
     } else {
       contetToShow = <span className={`bombs-${value}`}>{value !== 0 ? value : ''}</span>;
     }
