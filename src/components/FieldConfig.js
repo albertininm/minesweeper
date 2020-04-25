@@ -15,8 +15,8 @@ const FieldConfig = ({rows = 1, columns = 1, numberOfBombs = 0, onConfigChange})
           value={rows}
           onChange={(e) => {
             let value = e.target.value;
-            if(Number(value) > maxRow) value = maxRow;
-            if(Number(value) < minRow) value = minRow;
+            if(value > maxRow) value = maxRow;
+            if(value < minRow) value = minRow;
             onConfigChange('rows', value);
           }}
         />
@@ -29,10 +29,10 @@ const FieldConfig = ({rows = 1, columns = 1, numberOfBombs = 0, onConfigChange})
           type="number"
           value={columns}
           onChange={(e) => {
-            let value = e.target.value;
-            if(Number(value) > maxCol) value = maxRow;
-            if(Number(value) < minCol) value = minRow;
-            onConfigChange('columns', Number(e.target.value))
+            let value = Number(e.target.value);
+            if(value > maxCol) value = maxRow;
+            if(value < minCol) value = minRow;
+            onConfigChange('columns', value);
           }}
         />
         <label className="label-config" htmlFor="columns">Columns</label>

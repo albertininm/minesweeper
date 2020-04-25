@@ -34,12 +34,15 @@ const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
     }
   }
 
+  let bombs = 0;
+  const cells = rows * columns;
   for(let i = 0; i < numberOfBombs; i++) {
     const [x, y] = getRandomCoordinates(rows, columns);
-    if(matrix[x][y].isBomb) {
+    if(matrix[x][y].isBomb && bombs < cells) {
       i--;
     } else {
       matrix[x][y].isBomb = true;
+      bombs++;
     }
   }
 
@@ -52,7 +55,7 @@ const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
   return matrix;
 }
 
-const Field = ({special, rows, columns, numberOfBombs}) => {
+const Field = ({special, rows, columns, numberOfBombs, onStart}) => {
   const reducer = (state, action) => {
     return {...state, ...action.payload};
   }

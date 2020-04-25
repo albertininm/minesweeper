@@ -14,9 +14,9 @@ const MainLayout = () => {
     scorePlayer1: 0,
     scorePlayer2: 0,
     inProgress: false,
-    columns: 1,
-    rows: 1,
-    numberOfBombs: 0,
+    columns: 15,
+    rows: 10,
+    numberOfBombs: 25,
     special: false,
   });
 
@@ -42,7 +42,18 @@ const MainLayout = () => {
   }
 
   const onStart = (inProgress) => {
-    setState({payload: {inProgress}});
+    let payload = {inProgress};
+
+    //restart
+    if(!inProgress) {
+      payload = {
+        scorePlayer1: 0,
+        scorePlayer2: 0,
+        inProgress: false,
+      }
+    }
+
+    setState({payload});
   }
 
   return (
@@ -69,6 +80,7 @@ const MainLayout = () => {
         rows={state.rows}
         columns={state.columns}
         numberOfBombs={state.numberOfBombs}
+        onStart={onStart}
       />
       <div className="player-section">
       </div>
