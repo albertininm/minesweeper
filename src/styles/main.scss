@@ -16,6 +16,15 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
   flex-direction: column;
   margin-bottom: 30px;
 
+  .field-wrapper {
+    max-width: 900px;
+    max-height: 900px;
+
+    @media (max-width: 872px) {
+      overflow: auto;
+    }
+  }
+
   .field-container {
     background-color: rgba($primary, 0.1);
     border-radius: 3px;
@@ -149,10 +158,20 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
     margin: 20px 0;
     display: flex;
 
+    @media (max-width: 872px) {
+      display: contents;
+    }
+
     .player {
       align-items: center;
       display: flex;
       margin: 0 22px;
+
+      @media (max-width: 873px) {
+        &:-webkit-any(.player-2) {
+          flex-direction: row-reverse;
+        }
+      }
 
       .player-name {
         border: 1px solid rgba($primary, 0.3);
@@ -269,13 +288,19 @@ input[type=checkbox] {
 
 .field-config {
   border: 1px solid rgba($primary, 0.2);
+  box-shadow: 0 0 12px -3px rgba($primary, 0.8);
   display: flex;
   flex-direction: column;
   left: 20px;
-  position: fixed;
-  top: 132px;
+  margin-bottom: 30px;
+  top: 30px;
   padding: 6px;
-  box-shadow: 0 0 12px -3px rgba($primary, 0.8);
+  position: relative;
+
+  @media (min-width: 1400px) {
+    position: fixed;
+    top: 132px;
+  }
 
   .config {
     align-items: center;
