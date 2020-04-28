@@ -11,6 +11,7 @@ const PlayersScore = ({
   onStart,
   inProgress,
   special,
+  player1Turn,
   }) => {
 
   inProgress = inProgress || special;
@@ -27,7 +28,7 @@ const PlayersScore = ({
             onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
           >
           </input>
-          <div className="player-score">
+          <div className={`player-score${player1Turn ? ' current-turn': ''}`}>
             {scorePlayer1}
           </div>
         </div>
@@ -35,7 +36,7 @@ const PlayersScore = ({
           <>
             <span className="score-separator">X</span>
             <div className="player player-2">
-              <div className="player-score">
+              <div className={`player-score${!player1Turn ? ' current-turn': ''}`}>
                 {scorePlayer2}
               </div>
               <input

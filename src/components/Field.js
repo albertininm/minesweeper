@@ -51,7 +51,7 @@ const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
   return matrix;
 }
 
-const Field = ({special, rows, columns, numberOfBombs, onStart, inProgress}) => {
+const Field = ({special, rows, columns, numberOfBombs, onStart, inProgress, updatePlayerTurn}) => {
   const reducer = (state, action) => {
     return {...state, ...action.payload};
   }
@@ -85,6 +85,7 @@ const Field = ({special, rows, columns, numberOfBombs, onStart, inProgress}) => 
         expandBoundaries(newMatrix, x, y);
       }
       payload.matrix = newMatrix;
+      updatePlayerTurn();
       setState({payload});
     }
   }

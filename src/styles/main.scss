@@ -298,6 +298,10 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
     }
   }
 
+  .current-turn {
+    border: 3px solid lime !important;
+  }
+
 }
 
 .inprogress {

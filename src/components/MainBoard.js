@@ -18,6 +18,7 @@ const MainLayout = () => {
     rows: 10,
     numberOfBombs: 25,
     special: false,
+    player1Turn: true,
   });
 
   const setSinglePlayer = (singlePlayer) => {
@@ -37,6 +38,16 @@ const MainLayout = () => {
   const setFieldConfig = (key, value) => {
     const data = {[key]: value};
     setState({payload: {...data}});
+  }
+
+  const updatePlayerTurn = () => {
+    if (!state.singlePlayer) {
+      setState({
+        payload: {
+          player1Turn: !state.player1Turn,
+        }
+      });
+    }
   }
 
   const onStart = (inProgress) => {
@@ -68,6 +79,7 @@ const MainLayout = () => {
         scorePlayer2={state.scorePlayer2}
         special={state.special}
         onStart={onStart}
+        player1Turn={state.player1Turn}
       />
       <div className="field-wrapper">
         <Field
@@ -78,6 +90,7 @@ const MainLayout = () => {
           numberOfBombs={state.numberOfBombs}
           onStart={onStart}
           inProgress={state.inProgress}
+          updatePlayerTurn={updatePlayerTurn}
         />
       </div>
       <FieldConfig
