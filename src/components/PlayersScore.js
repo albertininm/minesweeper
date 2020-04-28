@@ -3,12 +3,17 @@ import React from 'react';
 const PlayersScore = ({
   namePlayer1,
   namePlayer2,
+  scorePlayer1,
+  scorePlayer2,
   singlePlayer,
   setSinglePlayer,
   setPlayerName,
   onStart,
-  inProgress
+  inProgress,
+  special,
   }) => {
+
+  inProgress = inProgress || special;
 
   return (
     <div className="players-container">
@@ -23,15 +28,15 @@ const PlayersScore = ({
           >
           </input>
           <div className="player-score">
-            1
+            {scorePlayer1}
           </div>
         </div>
         {!singlePlayer &&
           <>
             <span className="score-separator">X</span>
-            <div className="player">
+            <div className="player player-2">
               <div className="player-score">
-                0
+                {scorePlayer2}
               </div>
               <input
                 className={`player-name${inProgress?' inprogress' : ''}`}
@@ -65,8 +70,9 @@ const PlayersScore = ({
         <button
           className="start-game-button"
           onClick={() => onStart(!inProgress)}
+          disabled={special}
         >
-          <span className="start-game-text">{inProgress? 'Restart' : 'Start!'}</span>
+          <span className="start-game-text">{inProgress? 'Stop' : 'Start!'}</span>
         </button>
       </div>
     </div>

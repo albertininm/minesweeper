@@ -36,8 +36,6 @@ const MainLayout = () => {
 
   const setFieldConfig = (key, value) => {
     const data = {[key]: value};
-    console.log('DATA', data)
-    console.log(state)
     setState({payload: {...data}});
   }
 
@@ -66,24 +64,28 @@ const MainLayout = () => {
         setPlayerScore={setPlayerScore}
         namePlayer1={state.namePlayer1}
         namePlayer2={state.namePlayer2}
+        scorePlayer1={state.scorePlayer1}
+        scorePlayer2={state.scorePlayer2}
+        special={state.special}
         onStart={onStart}
       />
+      <div className="field-wrapper">
+        <Field
+          singlePlayer={state.singlePlayer}
+          special={state.special}
+          rows={state.rows}
+          columns={state.columns}
+          numberOfBombs={state.numberOfBombs}
+          onStart={onStart}
+          inProgress={state.inProgress}
+        />
+      </div>
       <FieldConfig
         onConfigChange={setFieldConfig}
         rows={state.rows}
         columns={state.columns}
         numberOfBombs={state.numberOfBombs}
       />
-      <Field
-        singlePlayer={state.singlePlayer}
-        special={state.special}
-        rows={state.rows}
-        columns={state.columns}
-        numberOfBombs={state.numberOfBombs}
-        onStart={onStart}
-      />
-      <div className="player-section">
-      </div>
     </div>
   )
 }

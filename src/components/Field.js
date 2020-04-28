@@ -9,10 +9,6 @@ import {
 
 import {expandBoundaries} from '../helpers/field';
 
-// const rows = 18;
-// const columns = 32;
-// const numberOfBombs = Math.floor((rows*columns)/10);
-
 const markAllAsSelected = (matrix) => {
   const rows = matrix.length;
   const columns = matrix[0] && matrix[0].length;
@@ -55,7 +51,7 @@ const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
   return matrix;
 }
 
-const Field = ({special, rows, columns, numberOfBombs, onStart}) => {
+const Field = ({special, rows, columns, numberOfBombs, onStart, inProgress}) => {
   const reducer = (state, action) => {
     return {...state, ...action.payload};
   }
@@ -75,7 +71,7 @@ const Field = ({special, rows, columns, numberOfBombs, onStart}) => {
   }, [rows, columns, numberOfBombs, special]);
 
   const onCellClick = ({x, y}) => {
-    if(!state.finished) {
+    if(!state.finished && inProgress) {
       const newMatrix = [...state.matrix];
       const payload = {};
       if (newMatrix[x][y].isBomb) {
