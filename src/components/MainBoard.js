@@ -59,6 +59,7 @@ const MainLayout = () => {
         scorePlayer1: 0,
         scorePlayer2: 0,
         inProgress: false,
+        player1Turn: true,
       }
     }
 
@@ -69,35 +70,36 @@ const MainLayout = () => {
     <div className="container">
       <PlayersScore
         inProgress={state.inProgress}
+        namePlayer1={state.namePlayer1}
+        namePlayer2={state.namePlayer2}
+        onStart={onStart}
+        player1Turn={state.player1Turn}
+        scorePlayer1={state.scorePlayer1}
+        scorePlayer2={state.scorePlayer2}
         singlePlayer={state.singlePlayer}
         setSinglePlayer={setSinglePlayer}
         setPlayerName={setPlayerName}
-        setPlayerScore={setPlayerScore}
-        namePlayer1={state.namePlayer1}
-        namePlayer2={state.namePlayer2}
-        scorePlayer1={state.scorePlayer1}
-        scorePlayer2={state.scorePlayer2}
         special={state.special}
-        onStart={onStart}
-        player1Turn={state.player1Turn}
       />
       <div className="field-wrapper">
         <Field
-          singlePlayer={state.singlePlayer}
-          special={state.special}
-          rows={state.rows}
           columns={state.columns}
+          inProgress={state.inProgress}
           numberOfBombs={state.numberOfBombs}
           onStart={onStart}
-          inProgress={state.inProgress}
+          player1Turn={state.player1Turn}
+          rows={state.rows}
+          setPlayerScore={setPlayerScore}
+          singlePlayer={state.singlePlayer}
+          special={state.special}
           updatePlayerTurn={updatePlayerTurn}
         />
       </div>
       <FieldConfig
-        onConfigChange={setFieldConfig}
-        rows={state.rows}
         columns={state.columns}
         numberOfBombs={state.numberOfBombs}
+        rows={state.rows}
+        onConfigChange={setFieldConfig}
       />
     </div>
   )
