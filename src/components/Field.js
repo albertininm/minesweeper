@@ -80,8 +80,7 @@ const Field = ({
         matrix: special ? specialState : getInitialMatrix({rows, columns, numberOfBombs}),
       }
     });
-    onStart();
-  }, [rows, columns, numberOfBombs, special]);
+  }, [rows, columns, numberOfBombs, special, inProgress]);
 
   const onCellClick = ({x, y}) => {
     if(inProgress) {
@@ -115,11 +114,12 @@ const Field = ({
   }
 
   return (
-    <div className={'field-container'}>
+    <div className={`field-container${!inProgress ? ' inprogress' : ''}`}>
       {state.matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
           return (
               <Cell
+                classes={!inProgress?' inprogress' : ''}
                 key={`${i}-${j}`}
                 callback={onCellClick}
                 x={i}

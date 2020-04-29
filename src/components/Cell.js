@@ -1,7 +1,7 @@
 import React from 'react';
 const bomb = require('../static/bomb.png');
 
-const Cell = ({callback, x, y, selected, value, isBomb}) => {
+const Cell = ({callback, classes, x, y, selected, value, isBomb}) => {
   const updateState = () => {
     callback({x, y, selected: !selected});
   }
@@ -17,7 +17,7 @@ const Cell = ({callback, x, y, selected, value, isBomb}) => {
 
   return (
     <div
-      className={`cell${selected ? ' selected' : ''}`}
+      className={`cell${selected ? ' selected' : ''}${classes ? classes : ''}`}
       onClick={updateState}
     >
       {contetToShow}
