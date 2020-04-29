@@ -14,9 +14,9 @@ const MainLayout = () => {
     scorePlayer1: 0,
     scorePlayer2: 0,
     inProgress: false,
-    columns: 15,
-    rows: 10,
-    numberOfBombs: 25,
+    columns: 7,
+    rows: 7,
+    numberOfBombs: 5,
     special: false,
     player1Turn: true,
   });
@@ -89,6 +89,8 @@ const MainLayout = () => {
           onStart={onStart}
           player1Turn={state.player1Turn}
           rows={state.rows}
+          scorePlayer1={state.scorePlayer1}
+          scorePlayer2={state.scorePlayer2}
           setPlayerScore={setPlayerScore}
           singlePlayer={state.singlePlayer}
           special={state.special}

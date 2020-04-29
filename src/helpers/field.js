@@ -68,45 +68,49 @@ function canMoveBottomRight(matrix, x, y) {
 
 
 const expandBoundaries = (matrix, x, y) => {
+  let counter = 0;
+
   if (canMoveRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y+1].selected = true;
-    expandBoundaries(matrix, x, y+1);
+    counter += (matrix[x][y+1].value || 1) + expandBoundaries(matrix, x, y+1);
   }
 
   if (canMoveLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y-1].selected = true;
-    expandBoundaries(matrix, x, y-1);
+    counter += (matrix[x][y-1].value || 1) + expandBoundaries(matrix, x, y-1);
   }
 
   if (canMoveTop(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y].selected = true;
-    expandBoundaries(matrix, x-1, y);
+    counter += (matrix[x-1][y].value || 1) + expandBoundaries(matrix, x-1, y);
   }
 
   if (canMoveBottom(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y].selected = true;
-    expandBoundaries(matrix, x+1, y);
+    counter += (matrix[x+1][y].value || 1) + expandBoundaries(matrix, x+1, y);
   }
 
   if (canMoveBottomLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y-1].selected = true;
-    expandBoundaries(matrix, x+1, y-1);
+    counter += (matrix[x+1][y-1].value || 1) + expandBoundaries(matrix, x+1, y-1);
   }
 
   if (canMoveBottomRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y+1].selected = true;
-    expandBoundaries(matrix, x+1, y+1);
+    counter += (matrix[x+1][y+1].value || 1) + expandBoundaries(matrix, x+1, y+1);
   }
 
   if (canMoveTopRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y+1].selected = true;
-    expandBoundaries(matrix, x-1, y+1);
+    counter += (matrix[x-1][y+1].value || 1) + expandBoundaries(matrix, x-1, y+1);
   }
 
   if (canMoveTopLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y-1].selected = true;
-    expandBoundaries(matrix, x-1, y-1);
+    counter += (matrix[x-1][y-1].value || 1) + expandBoundaries(matrix, x-1, y-1);
   }
+
+  return counter;
 }
 
 module.exports = {

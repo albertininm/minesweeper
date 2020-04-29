@@ -15,38 +15,53 @@ const PlayersScore = ({
   }) => {
 
   inProgress = inProgress || special;
+  const startButtomDisabled = special || (!namePlayer1.length || (!singlePlayer && !namePlayer2.length));
 
   return (
     <div className="players-container">
       <div className="players-container-wrapper">
-        <div className="player">
-          <input
-            className={`player-name${inProgress?' inprogress' : ''}`}
-            disabled={inProgress}
-            type="text"
-            value={namePlayer1}
-            onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
-          >
-          </input>
-          <div className={`player-score${player1Turn ? ' current-turn': ''}`}>
-            {scorePlayer1}
+        <div>
+          <div className="player">
+            <input
+              className={`player-name${inProgress?' inprogress' : ''}`}
+              disabled={inProgress}
+              type="text"
+              value={namePlayer1}
+              onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
+            >
+            </input>
+            <div className={`player-score${player1Turn ? ' current-turn': ''}`}>
+              {scorePlayer1}
+            </div>
           </div>
+          {!namePlayer1.length &&
+            <div className="error-message">
+              Enter player name
+            </div>
+          }
         </div>
         {!singlePlayer &&
           <>
             <span className="score-separator">X</span>
-            <div className="player player-2">
-              <div className={`player-score${!player1Turn ? ' current-turn': ''}`}>
-                {scorePlayer2}
+            <div>
+              <div className="player player-2">
+                <div className={`player-score${!player1Turn ? ' current-turn': ''}`}>
+                  {scorePlayer2}
+                </div>
+                <input
+                  className={`player-name${inProgress?' inprogress' : ''}`}
+                  disabled={inProgress}
+                  type="text"
+                  value={namePlayer2}
+                  onChange={({target: {value}}) => setPlayerName('namePlayer2', value)}
+                >
+                </input>
               </div>
-              <input
-                className={`player-name${inProgress?' inprogress' : ''}`}
-                disabled={inProgress}
-                type="text"
-                value={namePlayer2}
-                onChange={({target: {value}}) => setPlayerName('namePlayer2', value)}
-              >
-              </input>
+              {!namePlayer2.length &&
+                <div className="error-message player-2">
+                  Enter player name
+                </div>
+              }
             </div>
           </>
         }
@@ -69,9 +84,9 @@ const PlayersScore = ({
           </label>
         </div>
         <button
-          className="start-game-button"
+          className={`start-game-button${startButtomDisabled ? ' disabled' : ''}`}
           onClick={() => onStart(!inProgress)}
-          disabled={special}
+          disabled={startButtomDisabled}
         >
           <span className="start-game-text">{inProgress? 'Stop' : 'Start!'}</span>
         </button>

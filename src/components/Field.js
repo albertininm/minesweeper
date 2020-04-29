@@ -59,6 +59,11 @@ const Field = ({
   onStart,
   inProgress,
   updatePlayerTurn,
+  player1Turn,
+  setPlayerScore,
+  scorePlayer1,
+  scorePlayer2,
+  singlePlayer,
 }) => {
   const reducer = (state, action) => {
     return {...state, ...action.payload};
@@ -66,55 +71,51 @@ const Field = ({
 
   const [state, setState] = useReducer(reducer, {
     matrix: [],
-    finished: false,
     failed: false,
   });
 
   useEffect(() => {
     setState({
       payload: {
-        matrix: special? specialState : getInitialMatrix({rows, columns, numberOfBombs}),
+        matrix: special ? specialState : getInitialMatrix({rows, columns, numberOfBombs}),
       }
     });
     onStart();
   }, [rows, columns, numberOfBombs, special]);
 
   const onCellClick = ({x, y}) => {
-    if(!state.finished && inProgress) {
+    if(inProgress) {
       const newMatrix = [...state.matrix];
       const payload = {};
+
+      let counter = 0;
       if (newMatrix[x][y].isBomb) {
         markAllAsSelected(newMatrix);
         payload.finished = true;
         payload.failed = true;
       } else if (newMatrix[x][y].value){
         newMatrix[x][y].selected = true;
+        counter += newMatrix[x][y].value || 1;
       } else {
         newMatrix[x][y].selected = true;
-        expandBoundaries(newMatrix, x, y);
+        const count = expandBoundaries(newMatrix, x, y);
+        counter += count + 1;
       }
+
+      if (player1Turn) {
+        setPlayerScore('scorePlayer1', scorePlayer1 + counter);
+      } else {
+        setPlayerScore('scorePlayer2', scorePlayer2 + counter);
+      }
+
       payload.matrix = newMatrix;
       updatePlayerTurn();
       setState({payload});
     }
   }
 
-  const restart = () => {
-    setState({
-      payload: {
-        matrix: getInitialMatrix({rows, columns, numberOfBombs}),
-        failed: false,
-        finished: false,
-      }
-    });
-  }
-
   return (
     <div className={'field-container'}>
-      <Failure
-        failed={state.failed}
-        restart={restart}
-      />
       {state.matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
           return (
