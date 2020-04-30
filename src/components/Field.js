@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
 import {specialState} from '../utils/special-state';
 import {getRandomCoordinates} from '../utils/random';
-import {flattener} from '../utils/array';
+import flattener from '../utils/array';
 import {
   countNearBombs,
 } from '../helpers/bomb';

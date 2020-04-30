@@ -1,5 +1,2 @@
-const flattener = arr => [].concat(...arr);
-
-module.exports = {
-  flattener,
-};
+export const flattener = arr => [].concat(...arr);
+export default flattener;

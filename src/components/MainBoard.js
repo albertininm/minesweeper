@@ -13,7 +13,7 @@ const MainLayout = () => {
     numberOfBombs: 25,
     finished: false,
     inProgress: false,
-    namePlayer1: 'albert',
+    namePlayer1: '',
     namePlayer2: '',
     player1Turn: true,
     scorePlayer1: 0,
