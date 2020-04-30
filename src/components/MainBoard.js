@@ -102,6 +102,7 @@ const MainLayout = () => {
         setSinglePlayer={setSinglePlayer}
         setPlayerName={setPlayerName}
         special={state.special}
+        winner={state.winner}
       />
       <div className="field-wrapper">
         <Field

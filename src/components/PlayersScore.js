@@ -12,6 +12,7 @@ const PlayersScore = ({
   inProgress,
   special,
   player1Turn,
+  winner,
   }) => {
 
   inProgress = inProgress || special;
@@ -23,7 +24,7 @@ const PlayersScore = ({
         <div>
           <div className="player">
             <input
-              className={`player-name${inProgress?' inprogress' : ''}`}
+              className={`player-name${inProgress?' inprogress' : ''}${winner === namePlayer1 ? ' winner' : ''}`}
               disabled={inProgress}
               type="text"
               value={namePlayer1}
@@ -49,7 +50,7 @@ const PlayersScore = ({
                   {scorePlayer2}
                 </div>
                 <input
-                  className={`player-name${inProgress?' inprogress' : ''}`}
+                  className={`player-name${inProgress?' inprogress' : ''}${winner === namePlayer2 ? ' winner' : ''}`}
                   disabled={inProgress}
                   type="text"
                   value={namePlayer2}
