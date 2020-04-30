@@ -57,19 +57,18 @@ const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
 }
 
 const Field = ({
-  special,
-  rows,
   columns,
-  numberOfBombs,
-  onStart,
-  onFinish,
+  finished,
   inProgress,
-  updatePlayerTurn,
+  numberOfBombs,
+  onFinish,
   player1Turn,
-  setPlayerScore,
+  rows,
   scorePlayer1,
   scorePlayer2,
-  singlePlayer,
+  setPlayerScore,
+  special,
+  updatePlayerTurn,
 }) => {
 
   const [matrix, setMatrix] = useState([]);
@@ -87,9 +86,8 @@ const updatePayerScore = (counter) => {
 }
 
   const onCellClick = ({x, y}) => {
-    if(inProgress) {
+    if(inProgress && !finished) {
       const newMatrix = [...matrix];
-
       let counter = 0;
       if (newMatrix[x][y].isBomb) {
         markAllAsSelected(newMatrix);

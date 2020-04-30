@@ -8,22 +8,24 @@ const MainLayout = () => {
     return {...state, ...action.payload};
   }
   const [state, setState] = useReducer(reducer, {
-    singlePlayer: true,
-    namePlayer1: 'asd',
+    columns: 3,
+    finished: false,
+    inProgress: false,
+    namePlayer1: 'albert',
     namePlayer2: '',
+    numberOfBombs: 1,
+    player1Turn: true,
+    rows: 3,
     scorePlayer1: 0,
     scorePlayer2: 0,
-    inProgress: false,
-    columns: 3,
-    rows: 3,
-    numberOfBombs: 1,
+    singlePlayer: true,
     special: false,
-    player1Turn: true,
     winner: '',
   });
 
   const onFinish = (success) => {
     let winner = '';
+
     if (success) {
       if (state.player1Turn) {
         winner = state.namePlayer1;
@@ -40,6 +42,7 @@ const MainLayout = () => {
 
     setState({payload: {
       winner,
+      finished: true,
     }})
   }
 
@@ -73,16 +76,13 @@ const MainLayout = () => {
   }
 
   const onStart = (inProgress) => {
-    let payload = {inProgress};
-
-    //restart
-    if(!inProgress) {
-      payload = {
-        scorePlayer1: 0,
-        scorePlayer2: 0,
-        inProgress: false,
-        player1Turn: true,
-      }
+    let payload = {
+      finished: false,
+      inProgress: inProgress,
+      player1Turn: true,
+      scorePlayer1: 0,
+      scorePlayer2: 0,
+      winner: '',
     }
 
     setState({payload});
@@ -106,6 +106,7 @@ const MainLayout = () => {
       <div className="field-wrapper">
         <Field
           columns={state.columns}
+          finished={state.finished}
           inProgress={state.inProgress}
           numberOfBombs={state.numberOfBombs}
           onStart={onStart}
