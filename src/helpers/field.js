@@ -72,42 +72,50 @@ const expandBoundaries = (matrix, x, y) => {
 
   if (canMoveRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y+1].selected = true;
-    counter += (matrix[x][y+1].value || 1) + expandBoundaries(matrix, x, y+1);
+    const tmp = (matrix[x][y+1].value || 1) + expandBoundaries(matrix, x, y+1);
+    counter += tmp;
   }
 
   if (canMoveLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x][y-1].selected = true;
-    counter += (matrix[x][y-1].value || 1) + expandBoundaries(matrix, x, y-1);
+    const tmp = (matrix[x][y-1].value || 1) + expandBoundaries(matrix, x, y-1);
+    counter += tmp;
   }
 
   if (canMoveTop(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y].selected = true;
-    counter += (matrix[x-1][y].value || 1) + expandBoundaries(matrix, x-1, y);
+    const tmp = (matrix[x-1][y].value || 1) + expandBoundaries(matrix, x-1, y);
+    counter += tmp;
   }
 
   if (canMoveBottom(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y].selected = true;
-    counter += (matrix[x+1][y].value || 1) + expandBoundaries(matrix, x+1, y);
+    const tmp = (matrix[x+1][y].value || 1) + expandBoundaries(matrix, x+1, y);
+    counter += tmp;
   }
 
   if (canMoveBottomLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y-1].selected = true;
-    counter += (matrix[x+1][y-1].value || 1) + expandBoundaries(matrix, x+1, y-1);
+    const tmp = (matrix[x+1][y-1].value || 1) + expandBoundaries(matrix, x+1, y-1);
+    counter += tmp;
   }
 
   if (canMoveBottomRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x+1][y+1].selected = true;
-    counter += (matrix[x+1][y+1].value || 1) + expandBoundaries(matrix, x+1, y+1);
+    const tmp = (matrix[x+1][y+1].value || 1) + expandBoundaries(matrix, x+1, y+1);
+    counter += tmp;
   }
 
   if (canMoveTopRight(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y+1].selected = true;
-    counter += (matrix[x-1][y+1].value || 1) + expandBoundaries(matrix, x-1, y+1);
+    const tmp = (matrix[x-1][y+1].value || 1) + expandBoundaries(matrix, x-1, y+1);
+    counter += tmp;
   }
 
   if (canMoveTopLeft(matrix, x, y) && !matrix[x][y].value) {
     matrix[x-1][y-1].selected = true;
-    counter += (matrix[x-1][y-1].value || 1) + expandBoundaries(matrix, x-1, y-1);
+    const tmp = (matrix[x-1][y-1].value || 1) + expandBoundaries(matrix, x-1, y-1);
+    counter += tmp;
   }
 
   return counter;

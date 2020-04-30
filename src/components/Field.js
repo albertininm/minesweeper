@@ -1,8 +1,8 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
-import Failure from './Failure';
 import {specialState} from '../utils/special-state';
 import {getRandomCoordinates} from '../utils/random';
+import {flattener} from '../utils/array';
 import {
   countNearBombs,
 } from '../helpers/bomb';
@@ -18,6 +18,11 @@ const markAllAsSelected = (matrix) => {
       matrix[i][j].selected = true;
     }
   }
+}
+
+const remainsOnlyBombs = (matrix, numberOfBombs) => {
+  const flatenMatrix = flattener(matrix);
+  return flatenMatrix.filter(cell => !cell.selected).length === numberOfBombs;
 }
 
 const getInitialMatrix = ({rows, columns, numberOfBombs}) => {
@@ -57,6 +62,7 @@ const Field = ({
   columns,
   numberOfBombs,
   onStart,
+  onFinish,
   inProgress,
   updatePlayerTurn,
   player1Turn,
@@ -65,33 +71,31 @@ const Field = ({
   scorePlayer2,
   singlePlayer,
 }) => {
-  const reducer = (state, action) => {
-    return {...state, ...action.payload};
-  }
 
-  const [state, setState] = useReducer(reducer, {
-    matrix: [],
-    failed: false,
-  });
+  const [matrix, setMatrix] = useState([]);
 
   useEffect(() => {
-    setState({
-      payload: {
-        matrix: special ? specialState : getInitialMatrix({rows, columns, numberOfBombs}),
-      }
-    });
+    setMatrix(special ? specialState : getInitialMatrix({rows, columns, numberOfBombs}));
   }, [rows, columns, numberOfBombs, special, inProgress]);
+
+const updatePayerScore = (counter) => {
+  if (player1Turn) {
+    setPlayerScore('scorePlayer1', scorePlayer1 + counter);
+  } else {
+    setPlayerScore('scorePlayer2', scorePlayer2 + counter);
+  }
+}
 
   const onCellClick = ({x, y}) => {
     if(inProgress) {
-      const newMatrix = [...state.matrix];
-      const payload = {};
+      const newMatrix = [...matrix];
 
       let counter = 0;
       if (newMatrix[x][y].isBomb) {
         markAllAsSelected(newMatrix);
-        payload.finished = true;
-        payload.failed = true;
+        setMatrix(newMatrix);
+        onFinish(false);
+        return;
       } else if (newMatrix[x][y].value){
         newMatrix[x][y].selected = true;
         counter += newMatrix[x][y].value || 1;
@@ -101,21 +105,21 @@ const Field = ({
         counter += count + 1;
       }
 
-      if (player1Turn) {
-        setPlayerScore('scorePlayer1', scorePlayer1 + counter);
-      } else {
-        setPlayerScore('scorePlayer2', scorePlayer2 + counter);
+      updatePayerScore(counter);
+      setMatrix(newMatrix);
+
+      if (remainsOnlyBombs(newMatrix, numberOfBombs)) {
+        onFinish(true);
+        return;
       }
 
-      payload.matrix = newMatrix;
       updatePlayerTurn();
-      setState({payload});
     }
   }
 
   return (
     <div className={`field-container${!inProgress ? ' inprogress' : ''}`}>
-      {state.matrix.map((row, i) => {
+      {matrix.map((row, i) => {
         return <div key={i} className="row"> {row.map((item, j) => {
           return (
               <Cell
@@ -124,9 +128,9 @@ const Field = ({
                 callback={onCellClick}
                 x={i}
                 y={j}
-                selected={state.matrix[i][j].selected}
-                isBomb={state.matrix[i][j].isBomb}
-                value={state.matrix[i][j].value}
+                selected={matrix[i][j].selected}
+                isBomb={matrix[i][j].isBomb}
+                value={matrix[i][j].value}
               />
           );
         })}</div>
