@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PlayersScore = ({
+  finished,
   namePlayer1,
   namePlayer2,
   scorePlayer1,
@@ -24,7 +25,10 @@ const PlayersScore = ({
         <div>
           <div className="player">
             <input
-              className={`player-name${inProgress?' inprogress' : ''}${winner === namePlayer1 ? ' winner' : ''}`}
+              className={
+                `player-name${inProgress?' inprogress' : ''}` +
+                `${(finished && (winner === namePlayer1) && ' winner') || (finished && ' loser') || ''}`
+              }
               disabled={inProgress}
               type="text"
               value={namePlayer1}
@@ -50,7 +54,10 @@ const PlayersScore = ({
                   {scorePlayer2}
                 </div>
                 <input
-                  className={`player-name${inProgress?' inprogress' : ''}${winner === namePlayer2 ? ' winner' : ''}`}
+                  className={
+                    `player-name${inProgress?' inprogress' : ''}` +
+                    `${(finished && (winner === namePlayer2) && ' winner') || (finished && ' loser') || ''}`
+                  }
                   disabled={inProgress}
                   type="text"
                   value={namePlayer2}

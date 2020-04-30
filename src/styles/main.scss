@@ -223,6 +223,12 @@ $font-secondary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helveti
           box-shadow: 0 0 30px 5px green;
           border-radius: 3px;
         }
+
+        &.loser {
+          padding: 5px;
+          box-shadow: 0 0 30px 5px red;
+          border-radius: 3px;
+        }
       }
 
       .player-score {

@@ -8,14 +8,14 @@ const MainLayout = () => {
     return {...state, ...action.payload};
   }
   const [state, setState] = useReducer(reducer, {
-    columns: 3,
+    rows: 10,
+    columns: 15,
+    numberOfBombs: 25,
     finished: false,
     inProgress: false,
     namePlayer1: 'albert',
     namePlayer2: '',
-    numberOfBombs: 1,
     player1Turn: true,
-    rows: 3,
     scorePlayer1: 0,
     scorePlayer2: 0,
     singlePlayer: true,
@@ -41,8 +41,8 @@ const MainLayout = () => {
     }
 
     setState({payload: {
-      winner,
       finished: true,
+      winner,
     }})
   }
 
@@ -82,6 +82,7 @@ const MainLayout = () => {
       player1Turn: true,
       scorePlayer1: 0,
       scorePlayer2: 0,
+      loser: '',
       winner: '',
     }
 
@@ -91,6 +92,7 @@ const MainLayout = () => {
   return (
     <div className="container">
       <PlayersScore
+        finished={state.finished}
         inProgress={state.inProgress}
         namePlayer1={state.namePlayer1}
         namePlayer2={state.namePlayer2}
