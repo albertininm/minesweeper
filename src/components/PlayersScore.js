@@ -24,26 +24,33 @@ const PlayersScore = ({
       <div className="players-container-wrapper">
         <div>
           <div className="player">
-            <input
-              className={
-                `player-name${inProgress?' inprogress' : ''}` +
-                `${(finished && (winner === namePlayer1) && ' winner') || (finished && ' loser') || ''}`
+            <div class="player-name-feedback">
+              <input
+                className={
+                  `player-name${inProgress?' inprogress' : ''}` +
+                  `${(finished && (winner === namePlayer1) && ' winner') || (finished && ' loser') || ''}`
+                }
+                disabled={inProgress}
+                type="text"
+                value={namePlayer1}
+                onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
+              >
+              </input>
+              {!namePlayer1.length &&
+                <div className="alert-message error">
+                  Enter player name
+                </div>
               }
-              disabled={inProgress}
-              type="text"
-              value={namePlayer1}
-              onChange={({target: {value}}) => setPlayerName('namePlayer1', value)}
-            >
-            </input>
+              {finished && (winner === namePlayer1) &&
+                <div className="alert-message winner">
+                  Winner!
+                </div>
+              }
+            </div>
             <div className={`player-score${player1Turn ? ' current-turn': ''}`}>
               {scorePlayer1}
             </div>
           </div>
-          {!namePlayer1.length &&
-            <div className="error-message">
-              Enter player name
-            </div>
-          }
         </div>
         {!singlePlayer &&
           <>
@@ -53,23 +60,30 @@ const PlayersScore = ({
                 <div className={`player-score${!player1Turn ? ' current-turn': ''}`}>
                   {scorePlayer2}
                 </div>
-                <input
-                  className={
-                    `player-name${inProgress?' inprogress' : ''}` +
-                    `${(finished && (winner === namePlayer2) && ' winner') || (finished && ' loser') || ''}`
+                <div class="player-name-feedback">
+                  <input
+                    className={
+                      `player-name${inProgress?' inprogress' : ''}` +
+                      `${(finished && (winner === namePlayer2) && ' winner') || (finished && ' loser') || ''}`
+                    }
+                    disabled={inProgress}
+                    type="text"
+                    value={namePlayer2}
+                    onChange={({target: {value}}) => setPlayerName('namePlayer2', value)}
+                  >
+                  </input>
+                  {!namePlayer2.length &&
+                    <div className="alert-message error player-2">
+                      Enter player name
+                    </div>
                   }
-                  disabled={inProgress}
-                  type="text"
-                  value={namePlayer2}
-                  onChange={({target: {value}}) => setPlayerName('namePlayer2', value)}
-                >
-                </input>
-              </div>
-              {!namePlayer2.length &&
-                <div className="error-message player-2">
-                  Enter player name
+                  {finished && (winner === namePlayer2) &&
+                    <div className="alert-message winner">
+                      Winner!
+                    </div>
+                  }
                 </div>
-              }
+              </div>
             </div>
           </>
         }

@@ -77,13 +77,20 @@ const Field = ({
     setMatrix(special ? specialState : getInitialMatrix({rows, columns, numberOfBombs}));
   }, [rows, columns, numberOfBombs, special, inProgress]);
 
-const updatePayerScore = (counter) => {
-  if (player1Turn) {
-    setPlayerScore('scorePlayer1', scorePlayer1 + counter);
-  } else {
-    setPlayerScore('scorePlayer2', scorePlayer2 + counter);
+  const updatePayerScore = (counter) => {
+    if (player1Turn) {
+      setPlayerScore('scorePlayer1', scorePlayer1 + counter);
+    } else {
+      setPlayerScore('scorePlayer2', scorePlayer2 + counter);
+    }
   }
-}
+
+  useEffect(() => {
+    if (remainsOnlyBombs(matrix, numberOfBombs)) {
+      onFinish(true);
+      return;
+    }
+  }, [matrix]);
 
   const onCellClick = ({x, y}) => {
     if(inProgress && !finished) {
@@ -94,23 +101,19 @@ const updatePayerScore = (counter) => {
         setMatrix(newMatrix);
         onFinish(false);
         return;
-      } else if (newMatrix[x][y].value){
-        newMatrix[x][y].selected = true;
-        counter += newMatrix[x][y].value || 1;
-      } else {
-        newMatrix[x][y].selected = true;
-        const count = expandBoundaries(newMatrix, x, y);
-        counter += count + 1;
+      } else if (!newMatrix[x][y].selected) {
+        if (newMatrix[x][y].value){
+          newMatrix[x][y].selected = true;
+          counter += newMatrix[x][y].value || 1;
+        } else {
+          newMatrix[x][y].selected = true;
+          const count = expandBoundaries(newMatrix, x, y);
+          counter += count + 1;
+        }
       }
 
       updatePayerScore(counter);
       setMatrix(newMatrix);
-
-      if (remainsOnlyBombs(newMatrix, numberOfBombs)) {
-        onFinish(true);
-        return;
-      }
-
       updatePlayerTurn();
     }
   }

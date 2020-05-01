@@ -3,9 +3,20 @@ let specialState = [[false,false,false,false,false,false,false,false,false,false
 specialState = (specialState.map(element => {
   const el = element.map(bool => ({selected: bool}));
   return el;
-}))
+}));
+
+function checkSpecialState(singlePlayer, namePlayer1, namePlayer2) {
+  const player1Names = ['albert', 'albertinin'];
+  const player2Names = ['lais', 'laisinha'];
+
+  return (!singlePlayer &&
+    ((player1Names.includes(namePlayer1) && player2Names.includes(namePlayer2)) ||
+    (player1Names.includes(namePlayer2) && player2Names.includes(namePlayer1)))
+  );
+}
 
 
 module.exports = {
   specialState,
+  checkSpecialState,
 }

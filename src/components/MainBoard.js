@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import Field from './Field';
 import FieldConfig from './FieldConfig';
 import PlayersScore from './PlayersScore';
+import {checkSpecialState} from '../utils/special-state';
 
 const MainLayout = () => {
   const reducer = (state, action) => {
@@ -27,11 +28,24 @@ const MainLayout = () => {
     let winner = '';
 
     if (success) {
-      if (state.player1Turn) {
+      if (state.scorePlayer1 > state.scorePlayer2) {
         winner = state.namePlayer1;
-      } else {
+      } else if (state.scorePlayer1 < state.scorePlayer2){
         winner = state.namePlayer2;
+      } else {
+        winner = 'draw';
       }
+
+      const special = checkSpecialState(
+        state.singlePlayer,
+        state.namePlayer1,
+        state.namePlayer2
+      );
+
+      if(special) {
+        setState({payload: {special}});
+      }
+
     } else {
       if (state.player1Turn) {
         winner = state.namePlayer2;
