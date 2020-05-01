@@ -7,11 +7,11 @@ specialState = (specialState.map(element => {
 
 function checkSpecialState(singlePlayer, namePlayer1, namePlayer2) {
   const player1Names = ['albert', 'albertinin'];
-  const player2Names = ['lais', 'laisinha'];
+  const player2Names = ['lais', 'laisinha', 'laís'];
 
   return (!singlePlayer &&
-    ((player1Names.includes(namePlayer1) && player2Names.includes(namePlayer2)) ||
-    (player1Names.includes(namePlayer2) && player2Names.includes(namePlayer1)))
+    ((player1Names.includes(namePlayer1.toLowerCase()) && player2Names.includes(namePlayer2).toLowerCase()) ||
+    (player1Names.includes(namePlayer2.toLowerCase()) && player2Names.includes(namePlayer1.toLowerCase())))
   );
 }
 
